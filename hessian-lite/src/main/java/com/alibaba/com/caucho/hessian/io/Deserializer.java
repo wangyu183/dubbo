@@ -53,7 +53,6 @@ import java.io.IOException;
 /**
  * Deserializing an object.
  *
- * @author jason.shang@hotmail.com
  */
 public interface Deserializer {
     public Class getType();
@@ -65,7 +64,6 @@ public interface Deserializer {
             throws IOException;
 
     /**
-     *
      * deserialize list object from expect type.
      *
      * @param in
@@ -75,13 +73,12 @@ public interface Deserializer {
      * @throws IOException
      */
     public Object readList(AbstractHessianInput in, int length, Class<?> expectType)
-        throws IOException;
+            throws IOException;
 
     public Object readLengthList(AbstractHessianInput in, int length)
             throws IOException;
 
     /**
-     *
      * deserialize list object from expect type.
      *
      * @param in
@@ -91,7 +88,7 @@ public interface Deserializer {
      * @throws IOException
      */
     public Object readLengthList(AbstractHessianInput in, int length, Class<?> expectType)
-        throws IOException;
+            throws IOException;
 
     public Object readMap(AbstractHessianInput in)
             throws IOException;
@@ -104,8 +101,8 @@ public interface Deserializer {
      * @return
      * @throws IOException
      */
-    public Object readMap(AbstractHessianInput in, Class<?> expectKeyType, Class<?> expectValueType )
-        throws IOException;
+    public Object readMap(AbstractHessianInput in, Class<?> expectKeyType, Class<?> expectValueType)
+            throws IOException;
 
     public Object readObject(AbstractHessianInput in, String[] fieldNames)
             throws IOException;

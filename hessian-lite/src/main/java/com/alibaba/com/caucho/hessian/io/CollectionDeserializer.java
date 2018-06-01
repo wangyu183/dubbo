@@ -67,10 +67,12 @@ public class CollectionDeserializer extends AbstractListDeserializer {
         _type = type;
     }
 
+    @Override
     public Class getType() {
         return _type;
     }
 
+    @Override
     public Object readList(AbstractHessianInput in, int length)
             throws IOException {
         return readList(in, length, null);
@@ -85,7 +87,7 @@ public class CollectionDeserializer extends AbstractListDeserializer {
         Deserializer deserializer = null;
 
         SerializerFactory factory = findSerializerFactory(in);
-        if(expectType != null){
+        if (expectType != null) {
             deserializer = factory.getDeserializer(expectType.getName());
         }
 
@@ -97,6 +99,7 @@ public class CollectionDeserializer extends AbstractListDeserializer {
         return list;
     }
 
+    @Override
     public Object readLengthList(AbstractHessianInput in, int length)
             throws IOException {
         return readList(in, length, null);
@@ -111,7 +114,7 @@ public class CollectionDeserializer extends AbstractListDeserializer {
         Deserializer deserializer = null;
 
         SerializerFactory factory = findSerializerFactory(in);
-        if(expectType != null){
+        if (expectType != null) {
             deserializer = factory.getDeserializer(expectType.getName());
         }
 
