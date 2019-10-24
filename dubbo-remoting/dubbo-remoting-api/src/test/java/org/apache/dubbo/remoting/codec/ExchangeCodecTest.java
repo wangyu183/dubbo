@@ -350,7 +350,7 @@ public class ExchangeCodecTest extends TelnetCodecTest {
         Channel channel = getCliendSideChannel(url);
         Response response = new Response();
         response.setHeartbeat(true);
-        response.setId(1001l);
+        response.setId(1001L);
         response.setStatus((byte) 20);
         response.setVersion("11");
         Person person = new Person();
@@ -379,7 +379,7 @@ public class ExchangeCodecTest extends TelnetCodecTest {
         Channel channel = getCliendSideChannel(url);
         Response response = new Response();
         response.setHeartbeat(true);
-        response.setId(1001l);
+        response.setId(1001L);
         response.setStatus((byte) 10);
         response.setVersion("11");
         String badString = "bad";
@@ -402,7 +402,6 @@ public class ExchangeCodecTest extends TelnetCodecTest {
 //        Assertions.assertEquals(response.getProtocolVersion(), obj.getVersion());
     }
 
-    // http://code.alibabatech.com/jira/browse/DUBBO-392
     @Test
     public void testMessageLengthGreaterThanMessageActualLength() throws Exception {
         Channel channel = getCliendSideChannel(url);

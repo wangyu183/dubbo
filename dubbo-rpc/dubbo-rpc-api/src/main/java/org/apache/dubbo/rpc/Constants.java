@@ -46,6 +46,8 @@ public interface Constants {
 
     String GENERIC_SERIALIZATION_DEFAULT = "true";
 
+    String GENERIC_RAW_RETURN = "raw.return";
+
     String GENERIC_SERIALIZATION_BEAN = "bean";
 
     String GENERIC_SERIALIZATION_PROTOBUF = "protobuf-json";
@@ -83,10 +85,6 @@ public interface Constants {
     String ID_KEY = "id";
 
     String ASYNC_KEY = "async";
-
-    String FUTURE_GENERATED_KEY = "future_generated";
-
-    String FUTURE_RETURNTYPE_KEY = "future_returntype";
 
     String RETURN_KEY = "return";
 
