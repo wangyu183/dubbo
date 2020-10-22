@@ -24,6 +24,8 @@ import org.apache.dubbo.common.model.person.FullAddress;
 import org.apache.dubbo.common.model.person.PersonInfo;
 import org.apache.dubbo.common.model.person.PersonStatus;
 import org.apache.dubbo.common.model.person.Phone;
+
+import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -34,20 +36,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PojoUtilsTest {
@@ -277,6 +279,41 @@ public class PojoUtilsTest {
         assertThat(message.getFrom(), equalTo("dubbo"));
         assertTrue(message.isUrgent());
     }
+
+    @Test
+    public void testJsonObjectToMap() throws Exception {
+        Method method = PojoUtilsTest.class.getMethod("setMap", Map.class);
+        assertNotNull(method);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("1", "test");
+        @SuppressWarnings("unchecked")
+        Map<Integer, Object> value = (Map<Integer, Object>)PojoUtils.realize(jsonObject,
+                method.getParameterTypes()[0],
+                method.getGenericParameterTypes()[0]);
+        method.invoke(new PojoUtilsTest(), value);
+        assertEquals("test", value.get(1));
+    }
+
+    @Test
+    public void testListJsonObjectToListMap() throws Exception {
+        Method method = PojoUtilsTest.class.getMethod("setListMap", List.class);
+        assertNotNull(method);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("1", "test");
+        List<JSONObject> list = new ArrayList<>(1);
+        list.add(jsonObject);
+        @SuppressWarnings("unchecked")
+        List<Map<Integer, Object>> result = (List<Map<Integer, Object>>)PojoUtils.realize(
+                list,
+                method.getParameterTypes()[0],
+                method.getGenericParameterTypes()[0]);
+        method.invoke(new PojoUtilsTest(), result);
+        assertEquals("test", result.get(0).get(1));
+    }
+
+    public void setMap(Map<Integer, Object> map) {}
+
+    public void setListMap(List<Map<Integer, Object>> list) {}
 
     @Test
     public void testException() throws Exception {
@@ -696,7 +733,7 @@ public class PojoUtilsTest {
         assertTrue(personInfo.isMale());
         assertFalse(personInfo.isFemale());
     }
-  
+
     @Test
     public void testRealizeCollectionWithNullElement() {
         LinkedList<String> listStr = new LinkedList<>();
